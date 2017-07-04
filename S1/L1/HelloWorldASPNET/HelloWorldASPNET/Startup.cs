@@ -24,6 +24,7 @@ namespace HelloWorldASPNET
         {
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IPuppyService, DogCare>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,8 +38,13 @@ namespace HelloWorldASPNET
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseFileServer();
+
+            app.UseMvcWithDefaultRoute();
+
+            app.Run(async (context) => // Terminal piece of middleware
             {
+                // context.Request
                 // var greeting = Configuration["greeting"];
                 var greeting = puppyService.DoSound();
                 await context.Response.WriteAsync(greeting);
