@@ -1,0 +1,14 @@
+﻿@model List<HelloWorldASPNET.Models.AlBarto>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>The top secret page</title>
+</head>
+<body>
+@foreach (var rest in @Model) {
+    <p>@rest.Location</p>
+    <p>@rest.Outcome</p>
+}
+
+</body>
+</html>
