@@ -1,11 +1,14 @@
-﻿@model List<HelloWorldASPNET.Models.AlBarto>
+﻿@using HelloWorldASPNET.Entities
+@model HelloWorldASPNET.ViewModels.HomePageViewModel
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>The top secret page</title>
 </head>
 <body>
-@foreach (var rest in @Model) {
+<h2>@Model.Test</h2>
+@foreach (var rest in @Model.AlBartos)
+{
     <p>@rest.Location</p>
     <p>@rest.Outcome</p>
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HelloWorldASPNET.Models;
+using HelloWorldASPNET.Entities;
+using HelloWorldASPNET.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -40,7 +41,15 @@ namespace HelloWorldASPNET.Controllers
                 new AlBarto() {Location = "Italy", Outcome = 12},
             };
 
-            return View(lBartos);
+            var viewModel = new HomePageViewModel()
+            {
+                AlBartos = lBartos,
+                Test = "Composite View Model"
+            };
+            
+
+
+            return View(viewModel);
         }
     }
 }

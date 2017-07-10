@@ -1,0 +1,45 @@
+@using HelloWorldASPNET.ViewModels;
+@using HelloWorldASPNET.Controllers;
+@model HelloWorldASPNET.ViewModels.Person
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+@using (@Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <h4>Person</h4>
+        <hr/>
+        @Html.ValidationSummary(true)
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            @Html.HiddenFor(x => x.PersonId)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Gender)
+            @Html.DropDownListFor(m => m.Gender, Html.GetEnumSelectList(typeof(Gender)))
+            @Html.ValidationMessageFor(m => m.Gender)
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
