@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,9 +16,11 @@ namespace HelloWorldASPNET
     {
         public IConfiguration Configuration { get; set; }
 
-        public Startup()
+        public Startup(IHostingEnvironment appEnv)
         {
+            // dotnet ef migrations add InitialCreate
             Configuration = new ConfigurationBuilder()
+                .SetBasePath(appEnv.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .Build();
         }
@@ -27,6 +31,10 @@ namespace HelloWorldASPNET
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IPuppyService, DogCare>();
             services.AddMvc();
+            services.AddEntityFramework()
+                .AddEntityFrameworkSqlServer()
+                .AddDbContext<LBartoContext>(
+                    options => options.UseSqlServer(Configuration["connectionStrings:" + Configuration["environment"]]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

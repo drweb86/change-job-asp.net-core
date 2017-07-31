@@ -22,7 +22,8 @@ namespace HelloWorldASPNET.Controllers
         [HttpGet]
         public ViewResult Create()
         {
-            return View();
+            Person person = new Person();
+            return View(person);
         }
 
         [HttpPost]
